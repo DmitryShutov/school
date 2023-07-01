@@ -79,6 +79,38 @@ public class LinkedListTest {
         assertEquals(2, list.head.value);
         assertEquals(3, list.head.next.value);
         assertEquals(4, list.tail.value);
+        assertEquals(3, list.count());
+    }
+
+    @Test
+    public void testRemoveAllHead()
+    {
+        LinkedList list = createAndFill(1,2,3,4);
+        list.removeAll(1);
+        assertEquals(2, list.head.value);
+        assertEquals(3, list.head.next.value);
+        assertEquals(4, list.tail.value);
+        assertEquals(3, list.count());
+    }
+
+    @Test
+    public void testRemoveAllTail()
+    {
+        LinkedList list = createAndFill(1,3,4);
+        list.removeAll(4);
+        assertEquals(1, list.head.value);
+        assertEquals(3, list.tail.value);
+        assertEquals(2, list.count());
+    }
+
+      @Test
+    public void testRemoveAllHeadAndTail()
+    {
+        LinkedList list = createAndFill(4,1,3,4);
+        list.removeAll(4);
+        assertEquals(1, list.head.value);
+        assertEquals(3, list.tail.value);
+        assertEquals(2, list.count());
     }
 
     @Test

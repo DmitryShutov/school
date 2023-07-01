@@ -80,12 +80,12 @@ public class LinkedList
         Node currentNode = this.head;
         while(currentNode.next != null && currentNode.next.value != _value) {
             currentNode = currentNode.next;
-            if (currentNode.next.value == _value) {
+            if (currentNode.next != null && currentNode.next.value == _value) {
                 currentNode.next = currentNode.next.next;
-            if (currentNode.next == null) {
-                this.tail = currentNode;
+                if (currentNode.next == null) {
+                    this.tail = currentNode;
+                }
             }
-        }
         }
      }
 
