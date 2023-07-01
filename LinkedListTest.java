@@ -191,6 +191,15 @@ public class LinkedListTest {
     }
 
     @Test
+    public void testInsertInEmpty() {
+        LinkedList list = new LinkedList();
+        Node inserted = new Node(1);
+        list.insertAfter(null, inserted);
+        assertSame(list.head, inserted);
+        assertSame(inserted, list.tail);
+    }
+
+    @Test
     public void testSumLinkedList() {
         LinkedList first = createAndFill(1,2,3);
         LinkedList second = createAndFill(4,5,6);

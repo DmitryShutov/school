@@ -114,6 +114,9 @@ public class LinkedList
        if (_nodeAfter == null) {
         _nodeToInsert.next = this.head;
         this.head = _nodeToInsert;
+        if (this.tail == null) {
+            this.tail = _nodeToInsert;
+        }
         return;
        }
        Node currentNode = this.head;
