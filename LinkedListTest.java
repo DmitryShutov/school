@@ -176,6 +176,17 @@ public class LinkedListTest {
     }
 
     @Test
+    public void testInsertTail() {
+        LinkedList list = createAndFill(1);
+        Node inserted = new Node(2);
+        list.addInTail(inserted);
+        Node insertedTail = new Node(3);
+        list.insertAfter(inserted, insertedTail);
+        assertSame(list.tail, insertedTail);
+        assertEquals(list.count(), 3);
+    }
+
+    @Test
     public void testInsert() {
         LinkedList list = new LinkedList();
         Node head = new Node(1);

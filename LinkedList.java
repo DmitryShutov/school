@@ -111,20 +111,26 @@ public class LinkedList
 
      public void insertAfter(Node _nodeAfter, Node _nodeToInsert)
      {
-       if (_nodeAfter == null) {
-        _nodeToInsert.next = this.head;
-        this.head = _nodeToInsert;
-        if (this.tail == null) {
-            this.tail = _nodeToInsert;
+        if (this.head == null || _nodeAfter == null) {
+            _nodeToInsert.next = head;
+            this.head = _nodeToInsert;
+            if (this.tail == null) {
+                this.tail = _nodeToInsert;
+            }
+            return;
         }
-        return;
-       }
-       Node currentNode = this.head;
-       while (currentNode != _nodeAfter) {
-        currentNode = currentNode.next;
-       }    
-       _nodeToInsert.next = currentNode.next;
-       currentNode.next = _nodeToInsert;
+        Node currentNode = head;
+        while (currentNode != null && !currentNode.equals(_nodeAfter)) {
+            currentNode = currentNode.next;
+        }
+         if (currentNode == null) {
+            return;
+        }
+        _nodeToInsert.next = currentNode.next;
+        currentNode.next = _nodeToInsert;
+        if (currentNode.equals(tail)) {
+            tail = _nodeToInsert;
+        }
      }
 
      public static LinkedList sumLinkedList(LinkedList firstlist, LinkedList secondList) {
