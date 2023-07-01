@@ -83,6 +83,37 @@ public class LinkedListTest {
     }
 
     @Test
+    public void testRemoveAllInMiddle() 
+    {
+        LinkedList list = createAndFill(1,2,3,1,3);
+        list.removeAll(3);
+        assertEquals(1, list.head.value);
+        assertEquals(2, list.head.next.value);
+        assertEquals(1, list.tail.value);
+        assertEquals(3, list.count());
+    }
+
+    @Test
+    public void testRemoveAllOneElementList() 
+    {
+        LinkedList list = createAndFill(1);
+        list.removeAll(1);
+        assertNull(list.head);
+        assertNull(list.tail);
+        assertEquals(0, list.count());
+    }
+
+    @Test
+    public void testRemoveAllSameElementsList() 
+    {
+        LinkedList list = createAndFill(1,1,1,1);
+        list.removeAll(1);
+        assertNull(list.head);
+        assertNull(list.tail);
+        assertEquals(0, list.count());
+    }
+
+    @Test
     public void testRemoveAllHead()
     {
         LinkedList list = createAndFill(1,2,3,4);
