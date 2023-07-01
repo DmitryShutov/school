@@ -133,18 +133,16 @@ public class LinkedList
         }
      }
 
-     public static LinkedList sumLinkedList(LinkedList firstlist, LinkedList secondList) {
+     public static LinkedList sumLinkedList(LinkedList firstList, LinkedList secondList) {
         LinkedList result = new LinkedList();
-        if (firstlist.count() == secondList.count()) {
-            Node currentFirstNode = firstlist.head;
-            Node currentSecondNode = secondList.head;
-            while (currentFirstNode.next != null) {
-                int sum = currentFirstNode.value + currentSecondNode.value;
-                result.addInTail(new Node(sum));
-                currentFirstNode = currentFirstNode.next;
-                currentSecondNode = currentSecondNode.next;
+        if (firstList.count() == secondList.count()) {
+            Node firstListNode = firstList.head;
+            Node secondListNode = secondList.head;
+            while (firstListNode != null) {
+                result.addInTail(new Node(firstListNode.value + secondListNode.value));
+                firstListNode = firstListNode.next;
+                secondListNode = secondListNode.next;
             }
-            result.addInTail(new Node(firstlist.tail.value + secondList.tail.value));
         }
         return result;
      }
