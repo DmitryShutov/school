@@ -135,14 +135,15 @@ public class LinkedList
 
      public static LinkedList sumLinkedList(LinkedList firstList, LinkedList secondList) {
         LinkedList result = new LinkedList();
-        if (firstList.count() == secondList.count()) {
-            Node firstListNode = firstList.head;
-            Node secondListNode = secondList.head;
-            while (firstListNode != null) {
-                result.addInTail(new Node(firstListNode.value + secondListNode.value));
-                firstListNode = firstListNode.next;
-                secondListNode = secondListNode.next;
-            }
+        if (firstList.count() != secondList.count()) {
+            return result;
+        }
+        Node firstListNode = firstList.head;
+        Node secondListNode = secondList.head;
+        while (firstListNode != null) {
+            result.addInTail(new Node(firstListNode.value + secondListNode.value));
+            firstListNode = firstListNode.next;
+            secondListNode = secondListNode.next;
         }
         return result;
      }
@@ -159,3 +160,4 @@ class Node
        next = null;
      }
 }
+
