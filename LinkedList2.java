@@ -84,10 +84,12 @@ public class LinkedList2 {
           head = currentNode.next;
           if (this.head != null) {
             this.head.prev = null;
+          } else {
+            this.tail = null;
           }
         } else if (currentNode == tail) {
           tail = currentNode.prev;
-          if (this.tail.next != null) {
+          if (this.tail != null && this.tail.next != null) {
             this.tail.next = null;
           }
         } else {

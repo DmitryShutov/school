@@ -100,6 +100,39 @@ public class LinkedList2Test {
     }
 
     @Test
+    public void testRemoveAllEmpty() {
+        LinkedList2 list = new LinkedList2();
+        list.removeAll(1);
+        assertNull(list.head);
+        assertNull(list.tail);
+    }
+
+    @Test
+    public void testRemoveAllOnlyElement() {
+        LinkedList2 list = createAndFill(1);
+        list.removeAll(1);
+        assertNull(list.head);
+        assertNull(list.tail);
+    }
+
+    @Test
+    public void testRemoveAllOnlyElementNotMatch() {
+        LinkedList2 list = createAndFill(1);
+        list.removeAll(2);
+        assertEquals(1, list.head.value);
+        assertEquals(1, list.tail.value);
+        assertEquals(1, list.count());
+    }
+
+    @Test
+    public void testRemoveAllSameElements() {
+        LinkedList2 list = createAndFill(1, 1, 1, 1);
+        list.removeAll(1);
+        assertNull(list.head);
+        assertNull(list.tail);
+    }
+
+    @Test
     public void testRemoveAllHead() {
         LinkedList2 list = createAndFill(1, 2, 3, 4);
         list.removeAll(1);
