@@ -1,44 +1,54 @@
 import java.util.*;
 
 public class LinkedList2Dummy {
-    public Node head;
-    public Node tail;
     private Node dummy;
 
+    private boolean isDummy(Node node) {
+        return node instanceof Dummy;
+    }
+
+    public Node getHead() {
+        if (isDummy(dummy.next)) {
+            return null;
+        }
+        return dummy.next;
+    }
+
+    public Node getTail() {
+        if (isDummy(dummy.prev)) {
+            return null;
+        }
+        return dummy.prev;
+    }
+
     public LinkedList2Dummy() {
-        dummy = new Node(0);
+        dummy = new Dummy();
         dummy.next = dummy;
         dummy.prev = dummy;
-        dummy.isDummy = true;
     }
 
     public void addInTail(Node _item) {
-        if (head == null) {
-            this.head = _item;
-            this.head.next = null;
-            this.head.prev = null;
-        } else {
-            this.tail.next = _item;
-            _item.prev = tail;
-        }
-        this.tail = _item;
+        _item.prev = dummy.prev;
+        _item.next = dummy;
+        dummy.prev.next = _item;
+        dummy.prev = _item;
     }
 
     public Node find(int _value) {
-        Node node = this.head;
-        while (node != null) {
-            if (node.value == _value) {
-                return node;
-            }  
-            node = node.next;
+        Node current = dummy.next;
+        while (!isDummy(current)) {
+            if (current.value == _value) {
+                return current;
+            }
+            current = current.next;
         }
         return null;
     }
 
     public ArrayList<Node> findAll(int _value) {
         ArrayList<Node> nodes = new ArrayList<Node>();
-        Node current = this.dummy.next;
-        while (current != null && !current.isDummy) {
+        Node current = dummy.next;
+        while (!isDummy(current)) {
             if (current.value == _value) {
                 nodes.add(new Node(current.value));
             }
@@ -48,16 +58,10 @@ public class LinkedList2Dummy {
     }
 
     public boolean remove(int _value) {
-        if (this.head == null) {
-            return false;
-        }
-
         Node currentNode = this.dummy.next;
-        while (currentNode != null && !currentNode.isDummy) {
-            if (currentNode.value == _value && currentNode.next != null) {
-                currentNode.next.prev = currentNode.prev;
-            }
+        while (!isDummy(currentNode)) {
             if (currentNode.value == _value) {
+                currentNode.next.prev = currentNode.prev;
                 currentNode.prev.next = currentNode.next;
                 return true;
             }
@@ -67,15 +71,16 @@ public class LinkedList2Dummy {
         return false;
     }
 
-    public void removeAll(int value) {
+    public void removeAll(int _value) {
         Node currentNode = dummy.next;
-        while (!currentNode.isDummy) {
-            if (currentNode.value == value) {
+        while (!isDummy(currentNode)) {
+            if (currentNode.value == _value) {
                 currentNode.prev.next = currentNode.next;
                 currentNode.next.prev = currentNode.prev;
             }
             currentNode = currentNode.next;
         }
+        dummy.next.prev = dummy;
     }
 
     public void clear() {
@@ -84,20 +89,26 @@ public class LinkedList2Dummy {
     }
 
     public int count() {
-        Node currentNode = this.head;
+        Node currentNode = dummy.next;
         int count = 0;
-        while (currentNode != null) {
+        while (!isDummy(currentNode)) {
             count++;
             currentNode = currentNode.next;
         }
         return count;
     }
 
-    public void insertAfter(Node nodeAfter, Node nodeToInsert) {
-        nodeToInsert.next = nodeAfter.next;
-        nodeToInsert.prev = nodeAfter;
-        nodeAfter.next.prev = nodeToInsert;
-        nodeAfter.next = nodeToInsert;
+    public void insertAfter(Node _nodeAfter, Node _nodeToInsert) {
+        if (_nodeAfter != null) {
+            _nodeToInsert.next = _nodeAfter.next;
+            _nodeToInsert.prev = _nodeAfter;
+            _nodeAfter.next.prev = _nodeToInsert;
+            _nodeAfter.next = _nodeToInsert;
+            return;
+        }
+        _nodeToInsert.next = dummy.next;
+        _nodeToInsert.prev = dummy;
+        dummy.next = _nodeToInsert;
     }
 }
 
@@ -105,12 +116,16 @@ class Node {
     public int value;
     public Node next;
     public Node prev;
-    public boolean isDummy;
 
     public Node(int _value) {
         value = _value;
         next = null;
         prev = null;
-        this.isDummy = false;
+    }
+}
+
+class Dummy extends Node {
+    public Dummy() {
+        super(0);
     }
 }
