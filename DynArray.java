@@ -6,6 +6,7 @@ public class DynArray<T> {
     public int capacity;
     private int min_capacity = 16;
     private int multiplyer = 2;
+    private double shrinkCoeff = 1.5;
     Class clazz;
 
     public DynArray(Class clz) {
@@ -25,8 +26,10 @@ public class DynArray<T> {
     }
 
     public T getItem(int index) {
-        // ваш код
-        return null;
+        if (index >= count) {
+            throw new IndexOutOfBoundsException();
+        }
+        return array[index];
     }
 
     public void append(T itm) {
@@ -35,15 +38,33 @@ public class DynArray<T> {
         }
         array[count] = itm;
         count++;
-        // ваш код
     }
 
     public void insert(T itm, int index) {
-        // ваш код
+        if (index > count) {
+            throw new IndexOutOfBoundsException();
+        }
+        if (index == count) {
+            this.append(itm);
+            return;
+        }
+        if (count > capacity) {
+            makeArray(capacity * multiplyer);
+        }
+        System.arraycopy(array, index, array, index + 1, count - index);
+        array[index] = itm;
+        count++;
     }
 
     public void remove(int index) {
-        // ваш код
+        if (index >= count) {
+            throw new IndexOutOfBoundsException();
+        }
+        System.arraycopy(array, index + 1, array, index, count - index - 1);
+
+        if (capacity > count * multiplyer && capacity / shrinkCoeff > min_capacity) {
+            makeArray((int) (capacity / shrinkCoeff));
+        }
     }
 
 }
