@@ -16,15 +16,11 @@ public class DynArray<T> {
     }
 
     public void makeArray(int new_capacity) {
+        T[] newArray = (T[]) Array.newInstance(clazz, new_capacity);
         if (array != null) {
-            int capacity = new_capacity < min_capacity ? min_capacity : new_capacity;
-            T[] newArray = (T[]) Array.newInstance(this.clazz, capacity);
             System.arraycopy(array, 0, newArray, 0, count);
-            array = newArray;
         }
-        if (array == null) {
-            array = (T[]) Array.newInstance(this.clazz, capacity);
-        }
+        array = newArray;
         capacity = new_capacity;
     }
 
