@@ -33,7 +33,7 @@ public class DynArray<T> {
     }
 
     public void append(T itm) {
-        if (count > capacity) {
+        if (count >= capacity) {
             makeArray(capacity * multiplyer);
         }
         array[count] = itm;
@@ -44,11 +44,7 @@ public class DynArray<T> {
         if (index > count) {
             throw new IndexOutOfBoundsException();
         }
-        if (index == count) {
-            this.append(itm);
-            return;
-        }
-        if (count > capacity) {
+        if (count == capacity) {
             makeArray(capacity * multiplyer);
         }
         System.arraycopy(array, index, array, index + 1, count - index);
@@ -62,8 +58,11 @@ public class DynArray<T> {
         }
         System.arraycopy(array, index + 1, array, index, count - index - 1);
 
-        if (capacity > count * multiplyer && capacity / shrinkCoeff > min_capacity) {
-            makeArray((int) (capacity / shrinkCoeff));
+        count--;
+
+        if (capacity > min_capacity && count * 2 < capacity) {
+            int newCapacity = (int) (capacity / shrinkCoeff);
+            makeArray(newCapacity);
         }
     }
 

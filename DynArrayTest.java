@@ -30,13 +30,29 @@ public class DynArrayTest {
     }
 
     @Test
-    public void testInsertOutOfBounds() {
+    public void testInsertFirst() {
         DynArray<Integer> arr = new DynArray<>(Integer.class);
         arr.append(0);
         arr.append(1);
         arr.append(2);
-        assertThrows(IndexOutOfBoundsException.class, () -> arr.insert(3, 4));
-        assertThrows(IndexOutOfBoundsException.class, () -> arr.insert(4, 5));
+        arr.insert(3, 0);
+        assertEquals(arr.array[0], 3);
+        assertEquals(arr.count, 4);
+        assertEquals(arr.capacity, 16);
+    }
+
+    @Test
+    public void testInsertInMiddle() {
+        DynArray<Integer> arr = new DynArray<>(Integer.class);
+        arr.append(0);
+        arr.append(1);
+        arr.append(2);
+        arr.insert(3, 1);
+        assertEquals(arr.array[1], 3);
+        assertEquals(arr.array[2], 1);
+        assertEquals(arr.array[3], 2);
+        assertEquals(arr.count, 4);
+        assertEquals(arr.capacity, 16);
     }
 
     @Test
@@ -47,6 +63,70 @@ public class DynArrayTest {
         arr.append(2);
         arr.insert(3, 3);
         assertEquals(arr.array[3], 3);
+    }
+
+    @Test
+    public void testInsertEnhanceCapacity() {
+        DynArray<Integer> arr = new DynArray<>(Integer.class);
+        for (int i = 0; i < 16; i++) {
+            arr.append(i);
+        }
+        assertEquals(arr.capacity, 16);
+        arr.insert(16, 16);
+        assertEquals(arr.capacity, 32);
+    }
+
+    @Test
+    public void testInsertOutOfBounds() {
+        DynArray<Integer> arr = new DynArray<>(Integer.class);
+        for (int i = 0; i < 16; i++) {
+            arr.append(i);
+        }
+        assertThrows(IndexOutOfBoundsException.class, () -> arr.insert(17, 17));
+        assertThrows(IndexOutOfBoundsException.class, () -> arr.insert(18, 18));
+    }
+
+    @Test
+    public void testRemoveKeepCapacity() {
+        DynArray<Integer> arr = new DynArray<>(Integer.class);
+        for (int i = 0; i < 16; i++) {
+            arr.append(i);
+        }
+        assertEquals(arr.capacity, 16);
+        arr.remove(15);
+        arr.remove(0);
+        assertEquals(arr.capacity, 16);
+        assertEquals(arr.count, 14);
+    }
+
+    @Test
+    public void testShrinkCapacity() {
+        DynArray<Integer> arr = new DynArray<>(Integer.class);
+        for (int i = 0; i < 32; i++) {
+            arr.append(i);
+        }
+        assertEquals(arr.capacity, 32);
+        assertEquals(arr.count, 32);
+        for (int i = 0; i < 17; i++) {
+            arr.remove(0);
+        }
+        /*
+         * for (int i = 0; i < 9; i++) {
+         * arr.remove(5);
+         * }
+         */
+        assertEquals(arr.count, 15);
+        assertEquals(arr.capacity, 21);
+    }
+
+    @Test
+    public void testRemoveOutOfBounds() {
+        DynArray<Integer> arr = new DynArray<>(Integer.class);
+        for (int i = 0; i < 16; i++) {
+            arr.append(i);
+        }
+        assertThrows(IndexOutOfBoundsException.class, () -> arr.remove(16));
+
     }
 
 }
