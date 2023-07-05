@@ -60,8 +60,9 @@ public class DynArray<T> {
 
         count--;
 
-        if (capacity > min_capacity && count * 2 < capacity) {
-            int newCapacity = (int) (capacity / shrinkCoeff);
+        if (capacity > min_capacity && count < capacity / 2) {
+            int calc_capacity = (int) (capacity / shrinkCoeff);
+            int newCapacity = calc_capacity < min_capacity ? min_capacity : calc_capacity;
             makeArray(newCapacity);
         }
     }
