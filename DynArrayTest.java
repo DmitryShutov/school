@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.DynamicTest.stream;
 
 public class DynArrayTest {
 
@@ -88,7 +89,7 @@ public class DynArrayTest {
 
     @Test
     public void testRemoveKeepCapacity() {
-        DynArray<Integer> arr = new DynArray<>(Integer.class);
+        DynArray<Integer> arr = new DynArray<Integer>(Integer.class);
         for (int i = 0; i < 16; i++) {
             arr.append(i);
         }
@@ -100,8 +101,58 @@ public class DynArrayTest {
     }
 
     @Test
+    public void testRemoveMinimalArray() {
+        DynArray<Integer> arr = new DynArray<Integer>(Integer.class);
+        arr.append(1);
+        arr.remove(0);
+        assertEquals(arr.capacity, 16);
+        assertEquals(arr.count, 0);
+        assertThrows(IndexOutOfBoundsException.class, () -> arr.getItem(0));
+    }
+
+    @Test
+    public void testRemoveFromFilledArrayOfMinCapacity() {
+        DynArray<Integer> arr = new DynArray<Integer>(Integer.class);
+        for (int i = 0; i < 16; i++) {
+            arr.append(i);
+        }
+        assertEquals(arr.array[15], 15);
+        assertEquals(arr.capacity, 16);
+        assertEquals(arr.count, 16);
+        arr.remove(15);
+        assertEquals(arr.capacity, 16);
+        assertEquals(arr.count, 15);
+    }
+
+    @Test
+    public void testRemoveAllElements() {
+        DynArray<Integer> arr = new DynArray<Integer>(Integer.class);
+        for (int i = 0; i < 16; i++) {
+            arr.append(i);
+        }
+        for (int i = 15; i >= 0; i--) {
+            arr.remove(i);
+        }
+        assertEquals(arr.capacity, 16);
+        assertEquals(arr.count, 0);
+    }
+
+    @Test
+    public void testRemoveAllElementsDoubleCapacity() {
+        DynArray<Integer> arr = new DynArray<Integer>(Integer.class);
+        for (int i = 0; i < 32; i++) {
+            arr.append(i);
+        }
+        for (int i = 32; i > 0; i--) {
+            arr.remove(i - 1);
+        }
+        assertEquals(arr.capacity, 16);
+        assertEquals(arr.count, 0);
+    }
+
+    @Test
     public void testShrinkCapacity() {
-        DynArray<Integer> arr = new DynArray<>(Integer.class);
+        DynArray<Integer> arr = new DynArray<Integer>(Integer.class);
         for (int i = 0; i < 32; i++) {
             arr.append(i);
         }
@@ -110,11 +161,6 @@ public class DynArrayTest {
         for (int i = 0; i < 17; i++) {
             arr.remove(0);
         }
-        /*
-         * for (int i = 0; i < 9; i++) {
-         * arr.remove(5);
-         * }
-         */
         assertEquals(arr.count, 15);
         assertEquals(arr.capacity, 21);
     }
@@ -126,7 +172,5 @@ public class DynArrayTest {
             arr.append(i);
         }
         assertThrows(IndexOutOfBoundsException.class, () -> arr.remove(16));
-
     }
-
 }
