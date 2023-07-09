@@ -9,16 +9,22 @@ public class PostFixCalc {
             char current = seq.pop();
             if (Character.isDigit(current)) {
                 resultStack.push(Integer.parseInt(String.valueOf(current)));
+                continue;
             }
-            if (current == '+') {
-                int first = resultStack.pop();
-                int second = resultStack.pop();
-                resultStack.push(first + second);
-            }
-            if (current == '*') {
-                int first = resultStack.pop();
-                int second = resultStack.pop();
-                resultStack.push(first * second);
+            int first = resultStack.pop();
+            int second = resultStack.pop();
+            switch (current) {
+                case '+':
+                    resultStack.push(first + second);
+                    continue;
+                case '*':
+                    resultStack.push(first * second);
+                    continue;
+                case '/':
+                    resultStack.push(second / first);
+                    continue;
+                case '-':
+                    resultStack.push(second - first);
             }
         }
         return resultStack.peek();

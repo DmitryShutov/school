@@ -9,4 +9,11 @@ public class PostFixCalcTest {
         PostFixCalc calculator = new PostFixCalc();
         assertEquals(calculator.calc(seq), 59);
     }
+
+    @Test
+    public void testCalc2() {
+        String seq = "4 3 - 5 * 2 + =";
+        PostFixCalc calculator = new PostFixCalc();
+        assertEquals(calculator.calc(seq), 7);
+    }
 }
