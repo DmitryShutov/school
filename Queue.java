@@ -22,4 +22,12 @@ public class Queue<T> {
         return list.size();
     }
 
+    public void rotate(int n) {
+        int i = 0;
+        while (i < n) {
+            T current = dequeue();
+            enqueue(current);
+            i++;
+        }
+    }
 }
