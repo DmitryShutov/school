@@ -22,4 +22,28 @@ public class TwoStacksQueueTest {
         assertNull(queue.dequeue());
     }
 
+    @Test
+    public void testOneElementStack() {
+        TwoStacksQueue<Double> queue = new TwoStacksQueue<Double>();
+        queue.enqueue(1.0);
+        assertEquals(queue.size(), 1);
+        assertEquals(queue.dequeue(), 1.0);
+        assertEquals(queue.size(), 0);
+    }
+
+    @Test
+    public void testChangeStacks() {
+        TwoStacksQueue<Integer> queue = new TwoStacksQueue<Integer>();
+        queue.enqueue(1);
+        queue.enqueue(2);
+        assertEquals(queue.dequeue(), 1);
+        assertEquals(queue.size(), 1);
+        queue.enqueue(3);
+        assertEquals(queue.size(), 2);
+        assertEquals(queue.dequeue(), 2);
+        assertEquals(queue.size(), 1);
+        assertEquals(queue.dequeue(), 3);
+        assertEquals(queue.size(), 0);
+    }
+
 }

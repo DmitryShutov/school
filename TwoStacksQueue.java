@@ -1,5 +1,3 @@
-import java.util.*;
-
 public class TwoStacksQueue<T> {
     public Stack<T> dataStack;
     public Stack<T> tempStack;
@@ -14,23 +12,16 @@ public class TwoStacksQueue<T> {
     }
 
     public T dequeue() {
-        T result;
-        if (dataStack.size() == 0) {
-            return null;
+        if (tempStack.size() == 0) {
+            while (dataStack.size() > 0) {
+                T current = dataStack.pop();
+                tempStack.push(current);
+            }
         }
-        while (dataStack.size() > 1) {
-            T current = dataStack.pop();
-            tempStack.push(current);
-        }
-        result = dataStack.pop();
-        while (tempStack.size() > 0) {
-            T current = tempStack.pop();
-            dataStack.push(current);
-        }
-        return result;
+        return tempStack.pop();
     }
 
     public int size() {
-        return dataStack.size();
+        return dataStack.size() + tempStack.size();
     }
 }

@@ -23,11 +23,8 @@ public class Queue<T> {
     }
 
     public void rotate(int n) {
-        int i = 0;
-        while (i < n) {
-            T current = dequeue();
-            enqueue(current);
-            i++;
+        for (int i = 0; i < n; i++) {
+            enqueue(dequeue());
         }
     }
 }
