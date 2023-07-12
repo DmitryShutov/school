@@ -14,8 +14,7 @@ public class TwoStacksQueue<T> {
     public T dequeue() {
         if (tempStack.size() == 0) {
             while (dataStack.size() > 0) {
-                T current = dataStack.pop();
-                tempStack.push(current);
+                tempStack.push(dataStack.pop());
             }
         }
         return tempStack.pop();
