@@ -44,13 +44,11 @@ public class Deque<T>
         for (int i = 0; i < str.length(); i++) {
             deque.addFront(str.charAt(i));
         }
-        boolean result = true;
         for (int i = 0; i < deque.size()/2; i++) {
             if (deque.removeTail() != deque.removeFront()) {
-                result = false;
-                break;
+                return false;
             }
         }
-        return result;
+        return true;
     }
 }
