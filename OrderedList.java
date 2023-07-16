@@ -108,17 +108,21 @@ import java.util.*;
             clear(_ascending);
             return;
         }
+        if (removed == head) {
+            head = removed.next;
+            head.prev = null;
+            count--;
+            return;
+        }
         if (removed == tail) {
             tail = removed.prev;
             tail.next = null;
             count--;
             return;
         }
-        if (removed != null) {
-            removed.prev.next = removed.next;
-            removed.next.prev = removed.prev;
-            count--;
-        }
+        removed.prev.next = removed.next;
+        removed.next.prev = removed.prev;
+        count--;
     }
 
     public void clear(boolean asc)
