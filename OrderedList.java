@@ -41,9 +41,9 @@ import java.util.*;
 
     private boolean haveToAdd(Node<T> current, Node<T> newNode) {
         if (_ascending) {
-            return compare(current.value, newNode.value) >= 0;
+            return compare(current.value, newNode.value) > 0;
         }
-        return compare(current.value,newNode.value) <= 0;
+        return compare(current.value,newNode.value) < 0;
     }
 
     public void add(T value)
@@ -59,15 +59,9 @@ import java.util.*;
         while (currentNode != null) {
             Node<T> newNode = new Node<T>(value);
             if (currentNode == head && haveToAdd(currentNode, newNode)) {
-                currentNode.prev = newNode;
                 newNode.next = currentNode;
+                currentNode.prev = newNode;
                 head = newNode;
-                break;
-            } 
-            if (currentNode == tail && haveToAdd(currentNode, newNode)) {
-                currentNode.next = newNode;
-                newNode.prev = currentNode;
-                tail = newNode;
                 break;
             } 
             if (haveToAdd(currentNode, newNode)) {
@@ -85,7 +79,6 @@ import java.util.*;
             }
 
             currentNode = currentNode.next;
-        
         }
         count++;
     }
@@ -103,7 +96,10 @@ import java.util.*;
     }
 
     public void delete(T val)
-    {
+    {   
+        if (count == 0) {
+            return;
+        }
         Node<T> removed = find(val);
         if (removed == null) {
            return;
@@ -134,7 +130,7 @@ import java.util.*;
     }
 
     public int count()
-    {
+    {   
        return count;
     }
 
