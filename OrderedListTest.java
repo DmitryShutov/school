@@ -170,6 +170,20 @@ public class OrderedListTest {
     }
 
     @Test
+    public void testAddStringsWithLeadSpace() {
+        OrderedList<String> list = new OrderedList<String>(true);
+        list.add(" a");
+        list.add("b");
+        list.add("c");
+        list.add("d");
+        assertEquals(list.count(), 4);
+        assertEquals(list.head.value, " a");
+        assertEquals(list.tail.value, "d");
+        assertNull(list.head.prev);
+        assertNull(list.tail.next);
+    }
+
+    @Test
     public void testAddToTailDescending() {
         OrderedList<Integer> list = new OrderedList<Integer>(false);
         list.add(1);
