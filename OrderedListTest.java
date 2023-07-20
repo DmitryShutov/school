@@ -241,6 +241,54 @@ public class OrderedListTest {
     }
 
     @Test
+    public void testDeleteTail() {
+        OrderedList<Integer> list = new OrderedList<Integer>(true);
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.delete(3);
+        assertEquals(list.count(), 2);
+        assertEquals(list.head.value, 1);
+        assertEquals(list.tail.value, 2);
+    }
+
+    @Test
+    public void testDeleteDescendingTail() {
+        OrderedList<Integer> list = new OrderedList<Integer>(false);
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.delete(1);
+        assertEquals(list.count(), 2);
+        assertEquals(list.head.value, 3);
+        assertEquals(list.tail.value, 2);
+    }
+
+    @Test
+    public void testDeleteHead() {
+        OrderedList<Integer> list = new OrderedList<Integer>(true);
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.delete(1);
+        assertEquals(list.count(), 2);
+        assertEquals(list.head.value, 2);
+        assertEquals(list.tail.value, 3);
+    }
+
+    @Test
+    public void testDeleteDescendingHead() {
+        OrderedList<Integer> list = new OrderedList<Integer>(false);
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.delete(3);
+        assertEquals(list.count(), 2);
+        assertEquals(list.head.value, 2);
+        assertEquals(list.tail.value, 1);
+    }
+
+    @Test
     public void testDeleteEmpty() {
         OrderedList<Integer> list = new OrderedList<Integer>(true);
         list.delete(2);
