@@ -59,11 +59,13 @@ public class PowerSet {
     }
 
     public boolean remove(String value) {
-        boolean result = slots.remove(value);
-        if (result) {
-            size--;
+        int index = slots.indexOf(value);
+        if (index == -1) {
+            return false;
         }
-        return result;
+        size--;
+        slots.set(index, null);   
+        return true;
     }
 
     public PowerSet intersection(PowerSet set2) {

@@ -291,4 +291,19 @@ public class PowerSetTest {
         PowerSet intersection = powerSet.intersection(powerSet2);
         assertEquals(0, intersection.size());
     }
+
+    @Test
+    public void testAddRemoveAndAdd() {
+        PowerSet powerSet = new PowerSet();
+        for (int i = 0; i < 20000; i++) {
+            powerSet.put(String.valueOf(i));
+        }
+        for (int i = 0; i < 20000; i++) {
+            powerSet.remove(String.valueOf(i));
+        }
+        for (int i = 0; i < 20000; i++) {
+            powerSet.put(String.valueOf(i));
+        }
+        assertEquals(20000, powerSet.size());
+    }
 }   
