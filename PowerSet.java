@@ -68,8 +68,8 @@ public class PowerSet {
     public boolean remove(String value) {
         if (isKey(value)) {
             List<String> list = new ArrayList<>(Arrays.asList(slots));
-            list.removeAll(Collections.singleton(value));
-            slots = list.toArray(new String[0]);
+            list.remove(value);
+            slots = list.toArray(new String[MAX_SIZE]);
             size--;
             return true;
         }

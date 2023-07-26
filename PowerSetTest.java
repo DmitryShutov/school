@@ -189,4 +189,47 @@ public class PowerSetTest {
         }
         assertEquals(20000, powerSet.size());
     }
+
+    @Test
+    public void testAddAndRemoveTwentyThousands() {
+        PowerSet powerSet = new PowerSet();
+        for (int i = 0; i < 20000; i++) {
+            powerSet.put(String.valueOf(i));
+        }
+        for (int i = 0; i < 20000; i++) {
+            powerSet.remove(String.valueOf(i));
+        }
+        assertEquals(0, powerSet.size());
+    }
+
+    @Test
+    public void testAddAndGet() {
+        PowerSet powerSet = new PowerSet();
+        for (int i = 0; i < 20000; i++) {
+            powerSet.put(String.valueOf(i));
+        }
+        for (int i = 0; i < 20000; i++) {
+            assertTrue(powerSet.get(String.valueOf(i)));
+        }
+    }
+
+    @Test
+    public void testAddRemoveAndGet() {
+        PowerSet powerSet = new PowerSet();
+        for (int i = 0; i < 20000; i++) {
+            powerSet.put(String.valueOf(i));
+        }
+        for (int i = 0; i < 20000; i++) {
+            powerSet.remove(String.valueOf(i));
+        }
+        for (int i = 0; i < 20000; i++) {
+            assertFalse(powerSet.get(String.valueOf(i)));
+        }
+    }
+
+    @Test
+    public void testgetFromEmpty() {
+        PowerSet powerSet = new PowerSet();
+        assertFalse(powerSet.get("first"));
+    }
 }   
