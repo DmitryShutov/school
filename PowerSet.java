@@ -1,27 +1,26 @@
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Collections;
 import java.util.OptionalInt;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class PowerSet {
 
     public static final int MAX_SIZE = 20000;
     public int size;
-    public String[] slots;
+    public ArrayList<String> slots;
 
     public PowerSet() {
-        slots = new String[MAX_SIZE];
+        slots = new ArrayList<String>(Collections.nCopies(MAX_SIZE, null));
         size = 0;
     }
 
     public PowerSet(Object[] values) {
-        slots = new String[MAX_SIZE];
+        slots = new ArrayList<>(Collections.nCopies(MAX_SIZE, null));
         size = 0;
         Arrays.stream(values)
-              .filter(v -> v != null)
-              .forEach(v -> put((String) v));
+                .filter(v -> v != null)
+                .forEach(v -> put((String) v));
     }
 
     public int size() {
@@ -31,67 +30,60 @@ public class PowerSet {
     private int hashFun(String value) {
         if (value == null)
             return 0;
-        return Math.abs(value.hashCode()) % slots.length;
+        return Math.abs(value.hashCode()) % MAX_SIZE;
     }
 
-    public OptionalInt seekSlot(String value)
-    {   
-        return Arrays.stream(getIndices(value))
-                .filter(i -> value == null || slots[i] == null || slots[i].equals(value))
-                .limit(1L)
-                .findFirst();
-
-    }
-
-    public boolean isKey(String key) {
-        return Arrays.asList(slots).contains(key);
+    public OptionalInt seekSlot(String value) {
+        int index = hashFun(value);
+        int startIndex = index;
+        // do...while оказался наиболее быстрым вариантом
+        do {
+            if (slots.get(index) == null || slots.get(index).equals(value)) {
+                return OptionalInt.of(index);
+            }
+            index = (index + 1) % MAX_SIZE;
+        } while (index != startIndex);
+        return OptionalInt.empty();
     }
 
     public void put(String value) {
         OptionalInt index = seekSlot(value);
-        if (index.isPresent() && slots[index.getAsInt()] == null) {
-            slots[index.getAsInt()] = value;
+        if (index.isPresent() && slots.get(index.getAsInt()) == null) {
+            slots.set(index.getAsInt(), value);
             size++;
         }
     }
 
     public boolean get(String value) {
-        return Arrays.stream(getIndices(value)).anyMatch(i -> value.equals(slots[i]));
-    }
-
-    private int[] getIndices(String value) {
-        return IntStream.concat(IntStream.range(hashFun(value), slots.length), IntStream.range(0, hashFun(value))).toArray();
+        return slots.contains(value);
     }
 
     public boolean remove(String value) {
-        if (isKey(value)) {
-            List<String> list = new ArrayList<>(Arrays.asList(slots));
-            list.remove(value);
-            slots = list.toArray(new String[MAX_SIZE]);
+        boolean result = slots.remove(value);
+        if (result) {
             size--;
-            return true;
         }
-        return false;
+        return result;
     }
 
     public PowerSet intersection(PowerSet set2) {
-        return new PowerSet(Arrays.stream(slots)
-                    .filter(v -> v != null && set2.get(v))
-                    .toArray());
+        return new PowerSet(slots.stream()
+                .filter(v -> v != null && set2.get(v))
+                .toArray());
     }
 
     public PowerSet union(PowerSet set2) {
-        return new PowerSet(Stream.concat(Arrays.stream(slots), Arrays.stream(set2.slots)).toArray());
+        return new PowerSet(Stream.concat(slots.stream(), set2.slots.stream()).toArray());
     }
 
     public PowerSet difference(PowerSet set2) {
-        return new PowerSet(Arrays.stream(slots)
+        return new PowerSet(slots.stream()
                 .filter(v -> v != null && !set2.get(v))
                 .toArray());
     }
 
     public boolean isSubset(PowerSet set2) {
-        return Arrays.stream(set2.slots)
+        return set2.slots.stream()
                 .filter(v -> v != null)
                 .allMatch(this::get);
     }
