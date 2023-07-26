@@ -171,4 +171,22 @@ public class PowerSetTest {
         powerSet2.put("third");
         assertFalse(powerSet.isSubset(powerSet2));
     }
+
+    @Test
+    public void testAddTenThousandElements() {
+        PowerSet powerSet = new PowerSet();
+        for (int i = 0; i < 10000; i++) {
+            powerSet.put(String.valueOf(i));
+        }
+        assertEquals(10000, powerSet.size());
+    }
+
+    @Test
+    public void testAddTwentyThousandElements() {
+        PowerSet powerSet = new PowerSet();
+        for (int i = 0; i < 20000; i++) {
+            powerSet.put(String.valueOf(i));
+        }
+        assertEquals(20000, powerSet.size());
+    }
 }   

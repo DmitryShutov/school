@@ -3,6 +3,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.OptionalInt;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -11,7 +12,6 @@ public class PowerSet {
     public static final int MAX_SIZE = 20000;
     public int size;
     public String[] slots;
-    public int step = 3;
 
     public PowerSet() {
         slots = new String[MAX_SIZE];
@@ -21,29 +21,28 @@ public class PowerSet {
     public PowerSet(Object[] values) {
         slots = new String[MAX_SIZE];
         size = 0;
-        for (Object val : Arrays.stream(values).filter(v -> !Objects.isNull(v)).toArray())
-            put((String)val);
+        Arrays.stream(values)
+              .filter(v -> !Objects.isNull(v))
+              .forEach(v -> put((String) v));
     }
 
     public int size() {
         return size;
     }
 
-    public int hashFun(String value)
-    {    
-        int hash = 0;
-        hash += value.chars().sum();
-        return hash % MAX_SIZE;
+    private int hashFun(String value) {
+        if (value == null)
+            return 0;
+        return Math.abs(value.hashCode()) % slots.length;
     }
 
-    public int seekSlot(String value)
-    {
-        int index = hashFun(value);
-        int emptySlotIndex = IntStream.iterate(index, i -> (i + step) % size)
-            .filter(i -> slots[i] == null || slots[i].equals(value))
-            .findFirst()
-            .orElse(-1);
-        return emptySlotIndex;
+    public OptionalInt seekSlot(String value)
+    {   
+        return Arrays.stream(getIndexes(value))
+                .filter(i -> value == null || slots[i] == null || slots[i].equals(value))
+                .limit(1L)
+                .findFirst();
+
     }
 
     public boolean isKey(String key) {
@@ -51,16 +50,19 @@ public class PowerSet {
     }
 
     public void put(String value) {
-        if (isKey(value)) {
-            return;
+        OptionalInt index = seekSlot(value);
+        if (index.isPresent() && slots[index.getAsInt()] == null) {
+            slots[index.getAsInt()] = value;
+            size++;
         }
-        int slot = seekSlot(value);
-        slots[slot] = value;
-        size++;
     }
 
     public boolean get(String value) {
-        return isKey(value);
+        return Arrays.stream(getIndexes(value)).anyMatch(i -> value.equals(slots[i]));
+    }
+
+    private int[] getIndexes(String value) {
+        return IntStream.concat(IntStream.range(hashFun(value), slots.length), IntStream.range(0, hashFun(value))).toArray();
     }
 
     public boolean remove(String value) {
@@ -75,7 +77,9 @@ public class PowerSet {
     }
 
     public PowerSet intersection(PowerSet set2) {
-        return new PowerSet(Arrays.stream(slots).filter(set2::get).toArray());
+        return new PowerSet(Arrays.stream(slots)
+                    .filter(v -> v != null && set2.get(v))
+                    .toArray());
     }
 
     public PowerSet union(PowerSet set2) {
@@ -83,10 +87,14 @@ public class PowerSet {
     }
 
     public PowerSet difference(PowerSet set2) {
-        return new PowerSet(Arrays.stream(slots).filter(v -> !set2.get(v)).toArray());
+        return new PowerSet(Arrays.stream(slots)
+                .filter(v -> v != null && !set2.get(v))
+                .toArray());
     }
 
     public boolean isSubset(PowerSet set2) {
-        return Arrays.stream(set2.slots).filter(v -> !get(v)).toArray().length == 0;
+        return Arrays.stream(set2.slots)
+                .filter(v -> v != null)
+                .allMatch(this::get);
     }
 }
