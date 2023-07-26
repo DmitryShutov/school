@@ -232,4 +232,38 @@ public class PowerSetTest {
         PowerSet powerSet = new PowerSet();
         assertFalse(powerSet.get("first"));
     }
+
+    @Test
+    public void testIntersectionTwentyThousand() {
+        PowerSet powerSet = new PowerSet();
+        for (int i = 0; i < 20000; i++) {
+            powerSet.put(String.valueOf(i));
+        }
+        PowerSet powerSet2 = new PowerSet();
+        for (int i = 10000; i < 30000; i++) {
+            powerSet2.put(String.valueOf(i));
+        }
+        PowerSet intersection = powerSet.intersection(powerSet2);
+        assertEquals(10000, intersection.size());
+        for (int i = 10000; i < 20000; i++) {
+            assertTrue(intersection.get(String.valueOf(i)));
+        }
+    }
+
+    @Test
+    public void testDifferenceTwentyThousand() {
+        PowerSet powerSet = new PowerSet();
+        for (int i = 0; i < 20000; i++) {
+            powerSet.put(String.valueOf(i));
+        }
+        PowerSet powerSet2 = new PowerSet();
+        for (int i = 10000; i < 30000; i++) {
+            powerSet2.put(String.valueOf(i));
+        }
+        PowerSet difference = powerSet.difference(powerSet2);
+        assertEquals(10000, difference.size());
+        for (int i = 0; i < 10000; i++) {
+            assertTrue(difference.get(String.valueOf(i)));
+        }
+    }
 }   
