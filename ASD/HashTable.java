@@ -1,3 +1,5 @@
+import java.util.stream.IntStream;
+
 public class HashTable
   {
     public int size;
@@ -24,17 +26,11 @@ public class HashTable
     public int seekSlot(String value)
     {
         int index = hashFun(value);
-        int current = index;
-        do {
-            if (slots[current] == null) {
-                return current;
-            }
-            current += step;
-            if (current >= size) {
-                current -= size;
-            }
-        } while (current != index);
-        return -1;
+        int emptySlotIndex = IntStream.iterate(index, i -> (i + step) % size)
+            .filter(i -> slots[i] == null)
+            .findFirst()
+            .orElse(-1);
+        return emptySlotIndex;
     }
 
      public int put(String value)

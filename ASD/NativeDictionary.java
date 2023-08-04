@@ -1,4 +1,5 @@
 import java.lang.reflect.Array;
+import java.util.Arrays;
 
 class NativeDictionary<T> {
     public int size;
@@ -14,9 +15,7 @@ class NativeDictionary<T> {
 
     public int hashFun(String key) {
         int hash = 0;
-        for (int i = 0; i < key.length(); i++) {
-            hash += key.charAt(i);
-        }
+        hash += key.chars().sum();
         return hash % size;
     }
 
@@ -36,12 +35,7 @@ class NativeDictionary<T> {
     }
 
     public boolean isKey(String key) {
-        for (int i = 0; i < slots.length; i++) {
-            if (slots[i] == key) {
-                return true;
-            }
-        }
-        return false;
+        return Arrays.asList(slots).contains(key);
     }
 
     public void put(String key, T value) {

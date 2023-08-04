@@ -111,18 +111,20 @@ public class LinkedList2Dummy {
         dummy.next = _nodeToInsert;
     }
 }
-
-class Node {
-    public int value;
-    public Node next;
-    public Node prev;
-
-    public Node(int _value) {
-        value = _value;
-        next = null;
-        prev = null;
-    }
-}
+/*
+ * 
+ * class Node {
+ * public int value;
+ * public Node next;
+ * public Node prev;
+ * 
+ * public Node(int _value) {
+ * value = _value;
+ * next = null;
+ * prev = null;
+ * }
+ * }
+ */
 
 class Dummy extends Node {
     public Dummy() {
