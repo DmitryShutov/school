@@ -22,12 +22,29 @@ seq - expressionStack
 // из кода рабочих проектов
 usersList
 
-stateToGroupMap
+groupToStateMap
 
 registrationPriorityQueue
 
 6.3
 
+userIdentity
+
+groupName
+
+meetingParticipants
+
+6.4
+
+registeredSessionsArray - registeredSessions 
+
+baseSixtyFourToStringDecoder - base64Decoder
+
+currentConnectionState - connectionState
+
+deactivatedUserIdentity - deactivatedUserId
+
+generatedFilterStrategy - genFilterStrategy
 
 
 
