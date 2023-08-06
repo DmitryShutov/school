@@ -1,0 +1,33 @@
+6.1
+
+index - initialSlot
+// PowerSet индекс элемента рассчитанный хеш-функцией.
+
+index - targetSlot 
+// PowerSet слот в который мы сохраним значение переменной, рассчитывается в seekSlot.
+
+slots - setElements
+// PowerSet список в котором хранятся элементы сета
+
+deque - characterDeque  
+// очередь хранаящая элементы строки при проверке палиндрома
+
+minIndex -  leastUsedIndex
+// индекс элемента в кеше к которому произошло наименьшее число обращений
+
+6.2
+
+seq - expressionStack
+
+// из кода рабочих проектов
+usersList
+
+stateToGroupMap
+
+registrationPriorityQueue
+
+6.3
+
+
+
+
