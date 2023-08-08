@@ -1,0 +1,50 @@
+7.1
+
+groupRegistered - isGroupRegistered
+
+deactivated - isDeactivated
+
+initialized - isInitialized
+
+private - isGroupPrivate
+
+loaded - isLoaded
+
+7.2
+
+found - производим поиск групп пользователя в массиве, далее идет ветвление
+
+error - отправляем сообщение пользователя на сервер, в случае неудачи флаг нужен для отображения значка неотправленного сообщения
+
+success - выставляем в true после получения ответа от сервера что объект получен и успешно сохранен
+
+7.3
+
+не обнаружил циклов где стоит использовать не однобуквенный счетчик
+
+7.4
+
+opened/closed
+
+encrypted/decrypted
+
+
+7.5
+
+tempStack - reverseStack задача TwoStacksQueue
+
+index - startIndex в NativeDictionary seekSlot
+
+// переменная index не нужна
+public int seekSlot(String value)
+    {
+        int index = hashFun(value);
+        int emptySlotIndex = IntStream.iterate(index, i -> (i + step) % size)
+            .filter(i -> slots[i] == null)
+            .findFirst()
+            .orElse(-1);
+        return emptySlotIndex;
+    }
+
+
+
