@@ -1,0 +1,17 @@
+1
+SendVoice - VoiceSender
+DownloadManager - FileDownloader
+ItemSyncProcessor - ItemSync
+DataUploadController - ProfilesUploadController
+FetchCalendarListManager - CalendarListManager
+
+2
+
+getUserFiles - fetchUserFiles
+retrieveScannerList - fetchScannerList
+getSettings - fetchSettings
+getCurrentAccount - fetchCurrentAccount
+ToastManager - ToastController
+DialogManager - DialogController
+FeatureFlagManager - FeatureFlagController
+
