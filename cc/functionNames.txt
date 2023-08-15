@@ -8,5 +8,5 @@ handleMergeEmail -  mergeContactEmails - более точное описани�
 payloadGenerator - createGroup - точнее описывает то что метод делает
 clearInputData - dropContactSearch - очищаем данные поиска
 сhangeUserInput - setContactSearch - более тоное описания того что делает метод
-checkContactSizeLimit - setContactSizeLimit - метод записиб более информативно
+checkContactSizeLimit - setContactSizeLimit - метод записи, более информативно
 addTeamMembers - sendTeamMembers - метод выполняет POST запрос
