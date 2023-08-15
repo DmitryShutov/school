@@ -1,0 +1,12 @@
+validateAndSendSelectedMembers -  validateSelectedMembers, sendGroupMembers - разделяем метод на два выполняющих одну операцию
+getDataById - fetchUserMetaInfoById - более точное описание что именно делает метод, userMetaInfo это сложившийся термин в предметной области приложения
+findHighestPriorityIncludingMerge - mergeContacts, sortContactsByPriority - разделяем метод на два выполняющих одну операцию
+filterPhoneNumberByContactMatchWithoutDuplicate - filterPhoneByContacts, removeDuplicates - разделяем метод на два выполняющих одну операцию
+handleMergeGroupInfo - mergeGroupsInfo - точнее описывает что делает метод
+handlePhoneContactSearchResult - makeMetaInfoFromPhoneContact - более точное описание того что делает метод
+handleMergeEmail -  mergeContactEmails - более точное описание того что делает метод
+payloadGenerator - createGroup - точнее описывает то что метод делает
+clearInputData - dropContactSearch - очищаем данные поиска
+сhangeUserInput - setContactSearch - более тоное описания того что делает метод
+checkContactSizeLimit - setContactSizeLimit - метод записиб более информативно
+addTeamMembers - sendTeamMembers - метод выполняет POST запрос
