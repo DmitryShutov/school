@@ -1,0 +1,23 @@
+6.1
+public class User {
+    private User(String name, String companyId) {
+        // ...
+    }
+
+    public static User fromAdminPanel(String name, String companyId, String email) {
+        // ...
+    }
+
+    public static User fromJSON(String userJSON) {
+        // ...
+    }
+}
+
+6.2
+Интерфейсы
+SdkClient
+ConversationPicker
+
+Абстрактные классы
+AbstractEntity
+AbstractService
