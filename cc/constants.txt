@@ -1,0 +1,12 @@
+NOT_FOUND - вынес текст ошибки в константу
+defaultArrayLength - DEFAULT_LENGTH - переименовал
+FILES_PATH - вынес в константу путь до файлов
+apiRoot - API_ROOT - поправил наименование
+RETRIES - MAX_RETRIES - более точное наименование
+GROUP_LIMIT - USERS_LIMIT_FOR_GROUP - более точное наименование
+MIN_SYMBOLS_COUNT - MIN_PASSWORD_LENGTH - более точное наименование
+chunksCountHeader - CHUNKS_COUNT_HEADER_NAME - привел к верзнему регистру, поправил имя
+FILE_EXTENSION - NOTES_FILE_EXTENSION - более точное наименование
+WRONG_HEADER - CORRUPTED_FILE_HEADER - более точное наименование
+USER_OFFSET - USER_TIME_ZONE_OFFSET - более точное наименование
+BAD_GROUP - INCORRECT_GROUP_ID - более точное наименование
