@@ -1,0 +1,12 @@
+boolean isAdmin = userRole === 'admin' - вынес в перменную, используется в нескольких местах
+boolean hasEditorPermission = isAdmin || userRole === 'editor' - используется дважды вынес в переменную
+boolean isFormValid = isNameValid && isEmailValid && isPasswordValid - упрощаю сложное условие, использующееся дважды
+boolean isValidInput = input !== null && input !== undefined && input !== '' - упрощаю сложное условие
+boolean isErrorState = response.status >= 400 || !response.ok - вынес выражение в булеву перменную
+boolean canAddUsersToGroup = isAdmin && groupCountOfUsers < GROUP_USERS_LIMIT - вынес выражение в булеву перменную
+boolean hasEncryptionFeature = hasPaidAccount && (isEnabledByCompanyAdmin || hasE2EeFeature) - вынес выражение в булеву перменную
+boolean isHighContrastEnabled = userPreferences.theme === 'dark' && userPreferences.font === 'large' - вынес выражение в булеву перменную
+boolean shouldRenderComponent = isMobile && hasMobileView && !isTablet - вынес выражение в булеву перменную
+boolean isFilterApplied = isCategoryFilterActive && selectedCategories.length > 0  - вынес выражение в булеву перменную
+boolean hasAccessToChatSettings = (userRole === 'admin' || userRole === 'manager') && (isAdminPanel || isEmployeeList)  - вынес выражение в булеву перменную
+boolean canFetchAllMessagesHistory = (userRole === 'companyAdmin') && hasValidCertificate - вынес выражение в переменную, переиспользую в нескольких местах
