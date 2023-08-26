@@ -1,0 +1,30 @@
+1. let numOfUsers = 0 - инициализирую переменную значением по умолчанию
+2. let totalGroups = 0 - инициализирую переменную значением по умолчанию
+3.  
+let userProfile = fetchUserProfile(); // Получение данных пользователя
+saveProfileToStorage(userProfile);
+userData = null; // Завершение работы с данными пользователя
+4. // Инварианты, ошибку обработаю в месте вызова функции
+function countOfContactsOnline() {
+    ... 
+    if (count < 0) {
+        throw new Error("Invalid count of contacts");
+        return -1;
+    }
+    ....
+}    
+5. 
+// получаем конфигурацию, применяем ее, в объект присваиваем null
+let configuration = loadConfiguration();
+applyConfiguration(configuration);
+configuration = null;
+6. let maxRetries = DEFAULT_MAX_RETRIES - инициализирую переменную значением по умолчанию 
+7. перенес объявление переменной userGroups ближе к месту ее использования
+8. перенес объявление переменной groupParticipants ближе к месту ее использования
+9. перенес объявление переменной userIdentity ближе к месту ее использования
+10. перенес объявление переменной contactInfo ближе к месту ее использования
+11. let encryptedGroupCounts = 0 - инициализирую переменную
+12. let unreadMessagesCount = 0 - инициализирую переменную перед использованием
+13. записал null в объект ответа сервера на запрос группы после его использования
+14. let countOfUnencryptedMessages = 0 инициализирую переменную перед использованием
+15. let countOfErrors = 0  инициализирую переменную перед использованием
