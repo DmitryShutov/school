@@ -1,0 +1,134 @@
+1.  Было:
+    const countOfUnread = 0;
+    function totalUnreadCount() {
+        ....
+    }
+    Стало:
+    function totalUnreadCount() {
+        const countOfUnread = 0;
+        ....
+        return countOfUnread
+    }
+    // область видимости сжалась до тела функции
+
+2.  Было:
+    const countOnlineContacts = 0;
+    function totalCountOfOnlineContacts() {
+        ....
+    }
+    Стало:
+    удалил переменную, сразу возвращаю результат из функции
+
+3.  Разделил функцию searchContacts на две, избавился от переменной в которую писал результат, теперь возвращаю конктенацию результатов вызова двух функций
+
+4.  Было:
+    
+    function totalCountOfUnencrypted() {
+        const countOfUnencryptedMessages = 0;
+        ....
+    }
+    Стало:
+    удалил переменную countOfUnencryptedMessages, сразу возвращаю результат
+5.  Было:
+    function totalCountOfUnread() {
+        const result = 0;
+        ...
+        return result
+    }
+    Стало:
+    избавился от result, возращаю результат без временной переменной
+6. 
+    Было:
+    function sendMessage(user, chatId, message) {
+    const chat = findChatById(chatId);
+    if (chat) {
+        const userIsMember = chat.members.includes(user);
+        if (userIsMember) {
+        const messageSent = await addMessageToChat(chat, message);
+            if (messageSent) {
+                notifyChatMembers(chat, message);
+                }
+            }
+        }
+    }
+    Стало:
+    function sendMessage(user, chatId, message) {
+    const chat = findChatById(chatId);
+    if (chat && userIsMember(user, chat)) {
+        await addMessageToChat(chat, message);
+        notifyChatMembers(chat, message);
+        }
+    }
+7.  function sendNotification(user, message) {
+        const isSubscribed = user.subscription.active;
+        if (isSubscribed) {
+            const notification = createNotification(message);
+            showNotification(notification);
+        }
+        ...
+    }
+
+    // После исправления
+    function sendNotification(user, message) {
+        if (userIsSubscribed(user)) {
+        const notification = createNotification(message);
+        showNotification(notification);
+        }
+        ...
+    }
+    избавился от переменной
+
+8.  function editProfile(user, newInfo) {
+    const isAuthorized = user.isAuthorized();
+    if (isAuthorized) {
+        const updatedProfile = updateProfileInfo(user.profile, newInfo);
+        if (updatedProfile) {
+            saveProfile(updatedProfile);
+        }
+    }
+    ...
+    }
+
+    // После исправления
+    function editProfile(user, newInfo) {
+    if (userIsAuthorized(user)) {
+        const updatedProfile = updateProfileInfo(user.profile, newInfo);
+        if (updatedProfile) {
+            saveProfile(updatedProfile);
+        }
+    }
+    ...
+    } 
+    избавился от переменной c видимостью на все тело функции
+
+9.  разделил функцию addLike() на три разных
+    function addLike() {
+        sendLike();
+        updateView();
+        saveToDB();
+    }
+
+10.  
+    Было:
+    function joinGroup() {
+        const canJoin = canJoinById();
+        const hasInvite = findInvites();
+        if (canJoin && hasInvite) {
+            ...
+        } 
+        ...
+    }
+    Избавился от перменных
+    function joinGroup() {
+        if (canJoinById() && findInvites()) {
+            ...
+        } 
+        ...
+    }
+11. Логику notifyGroup разделил на две функции
+12. updateProfileInfo разделил на две части sendUpdatedProfile() и updateLocalProfile
+13. переменную класса groupsCount сделал приватной
+14. переменную класса isOnline сделал приватной
+15. findChatById разделил на два findChatByIdFromLocalCache и findChatByIdRemote (если не нашли локально то запрашиваем с сервера)
+
+
