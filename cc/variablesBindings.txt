@@ -1,0 +1,7 @@
+В моем проекте в основном связывание происходит во время компиляции кода, в основном значения переменных 
+записываются из констант, например:
+group.usersLimit = MAX_USERS_COUNT_PER_GROUP
+или file.maxSize = FILE_SIZE_LIMIT
+Но есть определенная часть переменных которые необходимо гибко конфигурировать из админки, их мы получаем с сервера и присваиваем следующим образом:
+const securedServiceUrl = SECURED_SERVICE_DEFAULT_URL || fetchServicesUrls.securedServiceUrl
+const enableEncryptedChats = false || fetchUserPrivileges.enableEncryptedChats
