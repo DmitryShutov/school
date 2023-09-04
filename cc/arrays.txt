@@ -1,0 +1,8 @@
+Всегда когда нахожу возможным вместо массивов стараюсь использовать Map, например: registeredGroupIds использую Map вместо массива.
+В своем коде при необходимости использования массивов обычно пользуюсь безопасными в плане выхода за границы массива методами
+map, reduce, filter, forEach
+Примеры:
+    const groupIds = groups.map(group => group.id)
+    const totalUnreadCount = groups.reduce((acc, group) => acc + group.unreadCount, 0)
+    const onlineUsers = users.filter(user => user.isOnline)
+    const postsWithReplies = posts.forEach(addReplyToPost)
