@@ -1,0 +1,74 @@
+1.
+п. 1
+Было:
+// Добавляет нового пользователя в чат
+function addUserToChat() {}
+Стало:
+function addNewUserToChatroom() {}
+
+2.
+п. 1
+Было:
+// Проверяет, есть ли у пользователя доступ к видеозвонку
+function checkUserAccess() {}
+Стало:
+function hasAccessToVideoCall() {}
+
+3.
+п.6
+// TODO: добавить сохранение истории сообщений в indexedDB
+function saveChatHistory() {}
+
+4.
+п. 1
+// Закрыть активное видео соединение
+function stopVideo() {}
+Стало function terminateActiveVideoCall() {}
+
+5.
+п.1
+// Сохраняем настройки профиля
+function saveSettings() {}
+Стало function persistUserProfileSettings() {}
+
+6.
+п.1
+// Проверяет наличие новых сообщений
+function checkNew() {}
+стало function hasNewMessages() {}
+
+7.
+п.5
+// Важно: Данные о пользователях должны быть синхронизированы с сервером,
+// для избежания возможных конфликтов
+function synchronizeUserData() {}
+
+8.
+п.5
+// Очень важно: при ошибке шифрования функция должно выбрасывать ошибку, она будет обработана в NetworkDecorator
+// это предотвратит отправку нешифрованного сообщения по сети
+function sendEncryptedMessage() {}
+
+9.
+п.2
+// Пользователь автоматически перемещается в начало чата.
+// Это было добавлено для упрощения навигации.
+function jumpToBeginningOfChat() {
+
+10.
+п.2
+// Убираем сообщения старше 6 месяцев с клиента, при необходимости запрашиваем их с сервера
+function removeOldMessages() {}
+
+11.
+п.2
+// Предоставить возможность планировать видеозвонки прямо из чата.
+// Это упрощает координацию между пользователями и интеграцию с их личными календарями.
+function scheduleVideoCallFromChat() {}
+
+12.
+п.1
+// Задержка перед тем, как показать уведомление о том, что контакт печатает ответ.
+const timeout = 500;
+Стало:
+const typingResponseDelay = 500;
