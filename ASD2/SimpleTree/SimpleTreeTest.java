@@ -214,5 +214,34 @@ public class SimpleTreeTest {
         assertEquals(child1, child2.Children.get(0));
     }
 
+    @Test
+    public void testRemoveAndCountLeafes() {
+        SimpleTreeNode<Integer> root = new SimpleTreeNode<Integer>(1, null);
+        SimpleTree<Integer> tree = new SimpleTree<Integer>(root);
+        SimpleTreeNode<Integer> child1 = new SimpleTreeNode<Integer>(2, root);
+        SimpleTreeNode<Integer> child2 = new SimpleTreeNode<Integer>(3, root);
+        SimpleTreeNode<Integer> child3 = new SimpleTreeNode<Integer>(4, child1);
+        tree.AddChild(root, child1);
+        tree.AddChild(root, child2);
+        tree.AddChild(child1, child3);
+        assertEquals(2, tree.LeafCount());
+        tree.DeleteNode(child2);
+        assertEquals(1, tree.LeafCount());
+        tree.DeleteNode(child3);
+        assertEquals(1, tree.LeafCount());
+        tree.DeleteNode(child1);
+        assertEquals(1, tree.LeafCount());
+    }
+
+    @Test
+    public void testCountLeafesAfterRemoving() {
+        SimpleTreeNode<Integer> root = new SimpleTreeNode<Integer>(1, null);
+        SimpleTree<Integer> tree = new SimpleTree<Integer>(root);
+        SimpleTreeNode<Integer> child1 = new SimpleTreeNode<Integer>(2, root);
+        tree.AddChild(root, child1);
+        tree.DeleteNode(child1);
+        assertEquals(1, tree.LeafCount());
+    }
+
 
 }
