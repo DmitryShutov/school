@@ -45,12 +45,12 @@ public class SimpleTree<T> {
       while (!queue.isEmpty()) {
           SimpleTreeNode<T> currentNode = queue.poll();
 
+          if (currentNode.Children != null && currentNode.Children.contains(NodeToDelete)) {
+              currentNode.Children.remove(NodeToDelete);
+              return;
+          }
           if (currentNode.Children != null) {
-              if (currentNode.Children.contains(NodeToDelete)) {
-                  currentNode.Children.remove(NodeToDelete);
-                  return;
-              }
-              queue.addAll(currentNode.Children);
+            queue.addAll(currentNode.Children);
           }
       }
     }
@@ -117,7 +117,7 @@ public class SimpleTree<T> {
       List<SimpleTreeNode<T>> allNodes = this.GetAllNodes();
       int count = 0;
       for (SimpleTreeNode<T> node : allNodes) {
-        if (node.Children == null) {
+        if (node.Children == null || node.Children.size() == 0) {
           count++;
         }
       }
