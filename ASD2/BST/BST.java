@@ -3,6 +3,12 @@ package BST;
 import java.io.*;
 import java.util.*;
 
+enum ORDERS {
+    IN_ORDER,
+    POST_ORDER,
+    PRE_ORDER
+}
+
 
 class BSTNode<T>
 {
@@ -167,6 +173,69 @@ class BST<T>
     public int Count()
     {
       return this.count; 
+    }
+
+    public ArrayList<BSTNode> WideAllNodes() {
+        ArrayList<BSTNode> result = new ArrayList<BSTNode>();
+        Queue<BSTNode> queue = new LinkedList<BSTNode>();
+        queue.add(Root);
+        while (!queue.isEmpty()) {
+            BSTNode node = queue.pollLast();
+            result.add(node);
+            if (node.LeftChild != null) {
+                queue.add(node.LeftChild);
+            }
+            if (node.RightChild != null) {
+                queue.add(node.RightChild);
+            }
+        }
+        return result;
+    }
+
+    public ArrayList<BSTNode> DeepAllNodes(ORDERS order) {
+        if (order == ORDERS.IN_ORDER) {
+            return this.DeepAllNodesInOrder(Root);
+        }
+        if (order == ORDERS.POST_ORDER) {
+            return this.DeepAllNodesPostOrder(Root);
+        }
+        return this.DeepAllNodesPreOrder(Root);
+    }
+
+    private ArrayList<BSTNode> DeepAllNodesInOrder(BSTNode node) {
+        ArrayList<BSTNode> list = new ArrayList<BSTNode>();
+        if(node.LeftChild != null) {
+            list.addAll(DeepAllNodesInOrder(node.LeftChild));
+        }
+        list.add(node);
+        if(node.RightChild != null) {
+            list.addAll(DeepAllNodesInOrder(node.RightChild));
+        }
+        return list;
+    }
+     
+    private ArrayList<BSTNode> DeepAllNodesPostOrder(BSTNode node) {
+        ArrayList<BSTNode> list = new ArrayList<BSTNode>();
+        if(node.LeftChild != null) {
+            list.addAll(DeepAllNodesInOrder(node.LeftChild));
+        }
+        if(node.RightChild != null) {
+            list.addAll(DeepAllNodesInOrder(node.RightChild));
+        }
+        list.add(node);
+        return list;
+    }
+
+    private ArrayList<BSTNode> DeepAllNodesPreOrder(BSTNode node) {
+        ArrayList<BSTNode> list = new ArrayList<BSTNode>();
+        list.add(node);
+        if(node.LeftChild != null) {
+            list.addAll(DeepAllNodesInOrder(node.LeftChild));
+        }
+        if(node.RightChild != null) {
+            list.addAll(DeepAllNodesInOrder(node.RightChild));
+        }
+        return list;
     }
 }
 
