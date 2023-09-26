@@ -213,8 +213,8 @@ public class BSTTest {
         assertEquals(4, tree.Count());
         ArrayList<BSTNode> nodes = tree.DeepAllNodes(ORDERS.POST_ORDER);
         assertEquals(2, nodes.get(0).NodeKey);
-        assertEquals(4, nodes.get(1).NodeKey);
-        assertEquals(5, nodes.get(2).NodeKey);
+        assertEquals(5, nodes.get(1).NodeKey);
+        assertEquals(4, nodes.get(2).NodeKey);
         assertEquals(3, nodes.get(3).NodeKey);
     }
 

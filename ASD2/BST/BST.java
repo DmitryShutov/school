@@ -217,10 +217,10 @@ class BST<T>
     private ArrayList<BSTNode> DeepAllNodesPostOrder(BSTNode node) {
         ArrayList<BSTNode> list = new ArrayList<BSTNode>();
         if(node.LeftChild != null) {
-            list.addAll(DeepAllNodesInOrder(node.LeftChild));
+            list.addAll(DeepAllNodesPostOrder(node.LeftChild));
         }
         if(node.RightChild != null) {
-            list.addAll(DeepAllNodesInOrder(node.RightChild));
+            list.addAll(DeepAllNodesPostOrder(node.RightChild));
         }
         list.add(node);
         return list;
@@ -230,12 +230,11 @@ class BST<T>
         ArrayList<BSTNode> list = new ArrayList<BSTNode>();
         list.add(node);
         if(node.LeftChild != null) {
-            list.addAll(DeepAllNodesInOrder(node.LeftChild));
+            list.addAll(DeepAllNodesPreOrder(node.LeftChild));
         }
         if(node.RightChild != null) {
-            list.addAll(DeepAllNodesInOrder(node.RightChild));
+            list.addAll(DeepAllNodesPreOrder(node.RightChild));
         }
         return list;
     }
 }
-
