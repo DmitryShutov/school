@@ -3,20 +3,13 @@ package BST;
 import java.io.*;
 import java.util.*;
 
-enum ORDERS {
-    IN_ORDER,
-    POST_ORDER,
-    PRE_ORDER
-}
-
-
 class BSTNode<T>
 {
-    public int NodeKey; // ключ узла
-    public T NodeValue; // значение в узле
-    public BSTNode<T> Parent; // родитель или null для корня
-    public BSTNode<T> LeftChild; // левый потомок
-    public BSTNode<T> RightChild; // правый потомок	
+    public int NodeKey; 
+    public T NodeValue; 
+    public BSTNode<T> Parent;
+    public BSTNode<T> LeftChild; 
+    public BSTNode<T> RightChild; 
 
     public BSTNode(int key, T val, BSTNode<T> parent)
     {
@@ -28,16 +21,14 @@ class BSTNode<T>
     }
 }
 
-// промежуточный результат поиска
+
 class BSTFind<T>
 {
-    // null если в дереве вообще нету узлов
+   
     public BSTNode<T> Node;
-	
-    // true если узел найден
+
     public boolean NodeHasKey;
 	
-    // true, если родительскому узлу надо добавить новый левым
     public boolean ToLeft;
 	
     public BSTFind() { Node = null; }
@@ -45,7 +36,7 @@ class BSTFind<T>
 
 class BST<T>
 {
-    BSTNode<T> Root; // корень дерева, или null
+    BSTNode<T> Root;
     private int count = 0;
 	
     public BST(BSTNode<T> node)
@@ -192,14 +183,17 @@ class BST<T>
         return result;
     }
 
-    public ArrayList<BSTNode> DeepAllNodes(ORDERS order) {
-        if (order == ORDERS.IN_ORDER) {
+    public ArrayList<BSTNode> DeepAllNodes(int order) {
+        if (order == 0) {
             return this.DeepAllNodesInOrder(Root);
         }
-        if (order == ORDERS.POST_ORDER) {
+        if (order == 1) {
             return this.DeepAllNodesPostOrder(Root);
         }
-        return this.DeepAllNodesPreOrder(Root);
+        if (order == 2) {
+            return this.DeepAllNodesPreOrder(Root);
+        }  
+        return new ArrayList<>();
     }
 
     private ArrayList<BSTNode> DeepAllNodesInOrder(BSTNode node) {

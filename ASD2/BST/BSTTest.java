@@ -196,7 +196,7 @@ public class BSTTest {
         tree.AddKeyValue(4, null);
         tree.AddKeyValue(5, null);
         assertEquals(4, tree.Count());
-        ArrayList<BSTNode> nodes = tree.DeepAllNodes(ORDERS.IN_ORDER);
+        ArrayList<BSTNode> nodes = tree.DeepAllNodes(0);
         assertEquals(2, nodes.get(0).NodeKey);
         assertEquals(3, nodes.get(1).NodeKey);
         assertEquals(4, nodes.get(2).NodeKey);
@@ -211,7 +211,7 @@ public class BSTTest {
         tree.AddKeyValue(4, null);
         tree.AddKeyValue(5, null);
         assertEquals(4, tree.Count());
-        ArrayList<BSTNode> nodes = tree.DeepAllNodes(ORDERS.POST_ORDER);
+        ArrayList<BSTNode> nodes = tree.DeepAllNodes(1);
         assertEquals(2, nodes.get(0).NodeKey);
         assertEquals(5, nodes.get(1).NodeKey);
         assertEquals(4, nodes.get(2).NodeKey);
@@ -226,7 +226,7 @@ public class BSTTest {
         tree.AddKeyValue(4, null);
         tree.AddKeyValue(5, null);
         assertEquals(4, tree.Count());
-        ArrayList<BSTNode> nodes = tree.DeepAllNodes(ORDERS.PRE_ORDER);
+        ArrayList<BSTNode> nodes = tree.DeepAllNodes(2);
         assertEquals(3, nodes.get(0).NodeKey);
         assertEquals(2, nodes.get(1).NodeKey);
         assertEquals(4, nodes.get(2).NodeKey);
