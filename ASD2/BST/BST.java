@@ -180,7 +180,7 @@ class BST<T>
         Queue<BSTNode> queue = new LinkedList<BSTNode>();
         queue.add(Root);
         while (!queue.isEmpty()) {
-            BSTNode node = queue.pollLast();
+            BSTNode node = queue.poll();
             result.add(node);
             if (node.LeftChild != null) {
                 queue.add(node.LeftChild);
