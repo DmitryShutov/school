@@ -15,7 +15,7 @@ class aBST {
 
     public int AddKey(int key) {
         Integer index = FindKeyIndex(key);
-        if (index <= 0) {
+        if (index != null && index <= 0) {
             int positiveIndex = Math.abs(index);
             Tree[positiveIndex] = key;
             return positiveIndex;
@@ -24,6 +24,9 @@ class aBST {
     }
 
     private Integer FindKeyIndexRecursive(int key, int currentIndex) {
+        if (currentIndex > Tree.length - 1) {
+            return null;
+        }
         if (Tree[currentIndex] == null) {
             return -currentIndex;
         }

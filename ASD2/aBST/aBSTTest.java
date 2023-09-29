@@ -43,6 +43,28 @@ public class aBSTTest {
     }
 
     @Test
+    public void testAddSameKeyTwice() {
+        aBST tree = new aBST(1);
+        assertEquals(0, tree.AddKey(50));
+        assertEquals(1, tree.AddKey(25));
+        assertEquals(2, tree.AddKey(75));
+        assertEquals(-1, tree.AddKey(75));
+    }
+
+    @Test
+    public void testFullTree() {
+        aBST tree = new aBST(2);
+        assertEquals(0, tree.AddKey(50));
+        assertEquals(1, tree.AddKey(25));
+        assertEquals(2, tree.AddKey(75));
+        assertEquals(4, tree.AddKey(37));
+        assertEquals(5, tree.AddKey(62));
+        assertEquals(6, tree.AddKey(84));
+        assertEquals(-1, tree.AddKey(31));
+        assertEquals(-1, tree.AddKey(30));
+    }
+
+    @Test
     public void testEmptyTree() {
         aBST tree = new aBST(3);
         assertEquals(0, tree.FindKeyIndex(50));
