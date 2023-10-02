@@ -17,4 +17,28 @@ public class AlgorithmsDataStructures2Test {
         assertEquals(5, result[5]);
         assertEquals(7, result[6]);
     }
+
+    @Test
+    public void testGenerateBBSTArrayWithOneElement() {
+        int[] a = {1};
+        int[] result = AlgorithmsDataStructures2.GenerateBBSTArray(a);
+        assertEquals(1, result[0]);
+    }
+
+    @Test
+    public void testNotFullTree() {
+        int[] a = {1, 3, 5};
+        int[] result = AlgorithmsDataStructures2.GenerateBBSTArray(a);
+        assertEquals(3, result[0]);
+        assertEquals(1, result[1]);
+        assertEquals(5, result[2]);
+    }
+
+    @Test
+    public void testCalcCountOfTreeElement() {
+        assertEquals(1, AlgorithmsDataStructures2.calcCountOfTreeElement(1));
+        assertEquals(3, AlgorithmsDataStructures2.calcCountOfTreeElement(2));
+        assertEquals(7, AlgorithmsDataStructures2.calcCountOfTreeElement(7));
+        assertEquals(15, AlgorithmsDataStructures2.calcCountOfTreeElement(9));
+    }
 }
