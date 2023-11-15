@@ -1,16 +1,20 @@
 package SimpleTree;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SimpleTreeTest {
-   @Test
+    @Test
     public void testTreeCreationWithoutNode() {
-        SimpleTree<Integer> tree = new SimpleTree<Integer>(null);  
+        SimpleTree<Integer> tree = new SimpleTree<Integer>(null);
         assertEquals(0, tree.Count());
     }
 
-    @Test 
+    @Test
     public void testNotEmptyTreeCreation() {
         SimpleTreeNode<Integer> node = new SimpleTreeNode<Integer>(1, null);
         SimpleTree<Integer> tree = new SimpleTree<Integer>(node);
@@ -20,7 +24,7 @@ public class SimpleTreeTest {
 
     @Test
     public void getAllNodesEmpty() {
-        SimpleTree<Integer> tree = new SimpleTree<Integer>(null);  
+        SimpleTree<Integer> tree = new SimpleTree<Integer>(null);
         assertEquals(0, tree.GetAllNodes().size());
     }
 
@@ -83,7 +87,7 @@ public class SimpleTreeTest {
         assertEquals(2, tree.Count());
     }
 
-    @Test 
+    @Test
     public void testDeleteRoot() {
         SimpleTreeNode<Integer> root = new SimpleTreeNode<Integer>(1, null);
         SimpleTree<Integer> tree = new SimpleTree<Integer>(root);
@@ -241,5 +245,25 @@ public class SimpleTreeTest {
         assertEquals(1, tree.LeafCount());
     }
 
+    @Test
+    public void testEvenTrees() {
+        SimpleTreeNode<Integer> node1 = new SimpleTreeNode<Integer>(1, null);
+        SimpleTreeNode<Integer> node2 = new SimpleTreeNode<Integer>(2, node1);
+        SimpleTreeNode<Integer> node3 = new SimpleTreeNode<Integer>(3, node1);
+        SimpleTreeNode<Integer> node4 = new SimpleTreeNode<Integer>(4, node2);
+        SimpleTreeNode<Integer> node5 = new SimpleTreeNode<Integer>(5, node2);
+        SimpleTreeNode<Integer> node6 = new SimpleTreeNode<Integer>(6, node3);
 
+        SimpleTree<Integer> tree = new SimpleTree<Integer>(node1);
+        tree.AddChild(node1, node2);
+        tree.AddChild(node1, node3);
+        tree.AddChild(node2, node4);
+        tree.AddChild(node2, node5);
+        tree.AddChild(node3, node6);
+
+        ArrayList<Integer> edgesToRemove = tree.EvenTrees();
+
+        assertTrue(edgesToRemove.contains(node1.NodeValue));
+        assertTrue(edgesToRemove.contains(node3.NodeValue));
+    }
 }
