@@ -124,19 +124,21 @@ public class SimpleTree<T> {
     }
 
     private int findEdgesToRemove(SimpleTreeNode<T> node, List<T> edgesToRemove) {
-        if (node == null || node.Children == null) {
+        if (node == null) {
             return 0;
         }
-        int subtreeNodeCount = 0;
-        for (SimpleTreeNode<T> child : node.Children) {
-            int childSubtreeCount = findEdgesToRemove(child, edgesToRemove);
-            subtreeNodeCount += childSubtreeCount;
-            if (childSubtreeCount > 0 && (childSubtreeCount + 1) % 2 == 0) {
-                edgesToRemove.add(node.NodeValue);
-                edgesToRemove.add(child.NodeValue);
+        int subtreeNodeCount = 1;
+        if (node.Children != null) {
+            for (SimpleTreeNode<T> child : node.Children) {
+                int childSubtreeCount = findEdgesToRemove(child, edgesToRemove);
+                subtreeNodeCount += childSubtreeCount;
+                if (childSubtreeCount % 2 == 0) {
+                    edgesToRemove.add(node.NodeValue);
+                    edgesToRemove.add(child.NodeValue);
+                }
             }
         }
-        return subtreeNodeCount + 1;
+        return subtreeNodeCount;
     }
 
 }

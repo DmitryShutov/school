@@ -266,4 +266,68 @@ public class SimpleTreeTest {
         assertTrue(edgesToRemove.contains(node1.NodeValue));
         assertTrue(edgesToRemove.contains(node3.NodeValue));
     }
+
+    @Test
+    public void testEvenTressEmptyTree() {
+        SimpleTree<Integer> tree = new SimpleTree<Integer>(null);
+        ArrayList<Integer> edgesToRemove = tree.EvenTrees();
+        assertEquals(0, edgesToRemove.size());
+    }
+
+    @Test
+    public void testEvenTreesOneNode() {
+        SimpleTreeNode<Integer> node1 = new SimpleTreeNode<Integer>(1, null);
+        SimpleTree<Integer> tree = new SimpleTree<Integer>(node1);
+        ArrayList<Integer> edgesToRemove = tree.EvenTrees();
+        assertEquals(0, edgesToRemove.size());
+    }
+
+    @Test
+    public void testEventTreesFourNodesInLine() {
+        SimpleTreeNode<Integer> node1 = new SimpleTreeNode<Integer>(1, null);
+        SimpleTreeNode<Integer> node2 = new SimpleTreeNode<Integer>(2, node1);
+        SimpleTreeNode<Integer> node3 = new SimpleTreeNode<Integer>(3, node2);
+        SimpleTreeNode<Integer> node4 = new SimpleTreeNode<Integer>(4, node3);
+        SimpleTree<Integer> tree = new SimpleTree<Integer>(node1);
+        tree.AddChild(node1, node2);
+        tree.AddChild(node2, node3);
+        tree.AddChild(node3, node4);
+        ArrayList<Integer> edgesToRemove = tree.EvenTrees();
+        assertEquals(2, edgesToRemove.size());
+        assertTrue(edgesToRemove.contains(node2.NodeValue));
+        assertTrue(edgesToRemove.contains(node3.NodeValue));
+    }
+
+    @Test
+    public void testEvenTreesFromTicket() {
+        SimpleTreeNode<Integer> node1 = new SimpleTreeNode<Integer>(1, null);
+        SimpleTreeNode<Integer> node2 = new SimpleTreeNode<Integer>(2, node1);
+        SimpleTreeNode<Integer> node3 = new SimpleTreeNode<Integer>(3, node1);
+        SimpleTreeNode<Integer> node4 = new SimpleTreeNode<Integer>(4, node3);
+        SimpleTreeNode<Integer> node5 = new SimpleTreeNode<Integer>(5, node2);
+        SimpleTreeNode<Integer> node6 = new SimpleTreeNode<Integer>(6, node1);
+        SimpleTreeNode<Integer> node7 = new SimpleTreeNode<Integer>(7, node2);
+        SimpleTreeNode<Integer> node8 = new SimpleTreeNode<Integer>(8, node6);
+        SimpleTreeNode<Integer> node9 = new SimpleTreeNode<Integer>(9, node8);
+        SimpleTreeNode<Integer> node10 = new SimpleTreeNode<Integer>(10, node8);
+
+        SimpleTree<Integer> tree = new SimpleTree<Integer>(node1);
+        tree.AddChild(node1, node2);
+        tree.AddChild(node1, node3);
+        tree.AddChild(node1, node6);
+        tree.AddChild(node2, node5);
+        tree.AddChild(node2, node7);
+        tree.AddChild(node3, node4);
+        tree.AddChild(node6, node8);
+        tree.AddChild(node8, node9);
+        tree.AddChild(node8, node10);
+
+        ArrayList<Integer> edgesToRemove = tree.EvenTrees();
+        assertEquals(4, edgesToRemove.size());
+        assertTrue(edgesToRemove.contains(node1.NodeValue));
+        assertTrue(edgesToRemove.contains(node3.NodeValue));
+        assertTrue(edgesToRemove.contains(node6.NodeValue));
+
+    }
 }
+
