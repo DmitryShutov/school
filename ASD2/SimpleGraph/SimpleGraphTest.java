@@ -153,4 +153,42 @@ public class SimpleGraphTest {
         assertEquals(2, res.get(2).Value);
         assertEquals(4, res.get(3).Value);
     }
+
+    @Test
+    public void BreadthFirstSearchEmptyGraph() {
+        SimpleGraph graph = new SimpleGraph(2);
+        graph.AddVertex(1);
+        graph.AddVertex(2);
+        assertEquals(0, graph.m_adjacency[0][1]);
+        ArrayList<Vertex> res = graph.BreadthFirstSearch(0, 1);
+        assertEquals(0, res.size());
+    }
+
+    @Test
+    public void BreadthFirstSearchSimplestCase() {
+        SimpleGraph graph = new SimpleGraph(2);
+        graph.AddVertex(1);
+        graph.AddVertex(2);
+        graph.AddEdge(0, 1);
+        assertEquals(1, graph.m_adjacency[0][1]);
+        ArrayList<Vertex> res = graph.BreadthFirstSearch(0, 1);
+        assertEquals(2, res.size());
+        assertEquals(1, res.get(0).Value);
+        assertEquals(2, res.get(1).Value);
+    }
+
+    @Test
+    public void BreadthFirstSearchCircleGraph() {
+        SimpleGraph graph = new SimpleGraph(3);
+        graph.AddVertex(0);
+        graph.AddVertex(1);
+        graph.AddVertex(2);
+        graph.AddEdge(0, 1);
+        graph.AddEdge(1, 2);
+        graph.AddEdge(2, 0);
+        ArrayList<Vertex> res = graph.BreadthFirstSearch(0, 2);
+        assertEquals(2, res.size());
+        assertEquals(0, res.get(0).Value);
+        assertEquals(2, res.get(1).Value);
+    }
 }

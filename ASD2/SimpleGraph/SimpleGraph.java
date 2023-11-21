@@ -1,8 +1,6 @@
 package SimpleGraph;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Stack;
+import java.util.*;
 
 class Vertex {
     public int Value;
@@ -19,6 +17,8 @@ class SimpleGraph {
     int[][] m_adjacency;
     int max_vertex;
     Stack<Vertex> routeVertexes = new Stack<Vertex>();
+    Map<Integer, Stack<Vertex>> vertexIndexToRoute = new HashMap<>();
+    Queue<Integer> unvisited = new LinkedList<>();
 
     public SimpleGraph(int size) {
         max_vertex = size;
@@ -72,8 +72,17 @@ class SimpleGraph {
         return new ArrayList<Vertex>(routeVertexes);
     }
 
+    public ArrayList<Vertex> BreadthFirstSearch(int VFrom, int VTo) {
+        this.CleanDS();
+        Stack<Vertex> initialRoute = new Stack<>();
+        initialRoute.push(vertex[VFrom]);
+        this.vertexIndexToRoute.put(VFrom, initialRoute);
+        return new ArrayList<Vertex>(bfs(VFrom, VTo));
+    }
+
     private void CleanDS() {
         this.routeVertexes = new Stack<Vertex>();
+        this.vertexIndexToRoute = new HashMap<>();
         for (Vertex v : vertex) {
             v.Hit = false;
         }
@@ -88,6 +97,28 @@ class SimpleGraph {
             }
         }
         return -1;
+    }
+
+    private Stack<Vertex> bfs(int fromIndex, int toIndex) {
+        vertex[fromIndex].Hit = true;
+        int unvisitedIndex = findFirstUnvisited(fromIndex);
+        if (unvisitedIndex != -1) {
+            unvisited.add(unvisitedIndex);
+        }
+        if (unvisited.size() == 0) {
+            return new Stack<>();
+        }
+        // сохраняем путь
+        int nextIndex = unvisited.poll();
+
+        Stack<Vertex> currentRoute = vertexIndexToRoute.getOrDefault(fromIndex, new Stack<>());
+        currentRoute.push(vertex[nextIndex]);
+        vertexIndexToRoute.put(nextIndex, currentRoute);
+
+        if (unvisitedIndex == toIndex) {
+            return vertexIndexToRoute.get(nextIndex);
+        }
+        return bfs(nextIndex, toIndex);
     }
 
     private Stack<Vertex> dfs(int fromIndex, int toIndex, boolean push) {
