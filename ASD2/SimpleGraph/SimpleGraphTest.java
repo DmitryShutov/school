@@ -185,10 +185,49 @@ public class SimpleGraphTest {
         graph.AddVertex(2);
         graph.AddEdge(0, 1);
         graph.AddEdge(1, 2);
-        graph.AddEdge(2, 0);
+        graph.AddEdge(0, 2);
         ArrayList<Vertex> res = graph.BreadthFirstSearch(0, 2);
         assertEquals(2, res.size());
         assertEquals(0, res.get(0).Value);
         assertEquals(2, res.get(1).Value);
+    }
+
+    @Test
+    public void bfsNoWayInGraph() {
+        SimpleGraph graph = new SimpleGraph(5);
+        graph.AddVertex(0);
+        graph.AddVertex(1);
+        graph.AddVertex(2);
+        graph.AddVertex(3);
+        graph.AddVertex(4);
+        graph.AddEdge(0, 1);
+        graph.AddEdge(1, 2);
+        graph.AddEdge(2, 3);
+        ArrayList<Vertex> res = graph.BreadthFirstSearch(0, 4);
+        assertEquals(0, res.size());
+    }
+
+    @Test
+    public void bfsLotsOfConnection() {
+        SimpleGraph graph = new SimpleGraph(5);
+        graph.AddVertex(0);
+        graph.AddVertex(1);
+        graph.AddVertex(2);
+        graph.AddVertex(3);
+        graph.AddVertex(4);
+        graph.AddEdge(0, 1);
+        graph.AddEdge(1, 2);
+        graph.AddEdge(2, 3);
+        graph.AddEdge(3, 4);
+        graph.AddEdge(0, 2);
+        graph.AddEdge(1, 3);
+        graph.AddEdge(2, 4);
+        graph.AddEdge(0, 3);
+        graph.AddEdge(1, 4);
+        ArrayList<Vertex> res = graph.BreadthFirstSearch(0, 4);
+        assertEquals(3, res.size());
+        assertEquals(0, res.get(0).Value);
+        assertEquals(1, res.get(1).Value);
+        assertEquals(4, res.get(2).Value);
     }
 }

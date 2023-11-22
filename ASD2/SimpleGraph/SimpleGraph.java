@@ -17,8 +17,6 @@ class SimpleGraph {
     int[][] m_adjacency;
     int max_vertex;
     Stack<Vertex> routeVertexes = new Stack<Vertex>();
-    Map<Integer, Stack<Vertex>> vertexIndexToRoute = new HashMap<>();
-    Queue<Integer> unvisited = new LinkedList<>();
 
     public SimpleGraph(int size) {
         max_vertex = size;
@@ -74,15 +72,11 @@ class SimpleGraph {
 
     public ArrayList<Vertex> BreadthFirstSearch(int VFrom, int VTo) {
         this.CleanDS();
-        Stack<Vertex> initialRoute = new Stack<>();
-        initialRoute.push(vertex[VFrom]);
-        this.vertexIndexToRoute.put(VFrom, initialRoute);
-        return new ArrayList<Vertex>(bfs(VFrom, VTo));
+        return bfs(VFrom, VTo);
     }
 
     private void CleanDS() {
         this.routeVertexes = new Stack<Vertex>();
-        this.vertexIndexToRoute = new HashMap<>();
         for (Vertex v : vertex) {
             v.Hit = false;
         }
@@ -99,27 +93,50 @@ class SimpleGraph {
         return -1;
     }
 
-    private Stack<Vertex> bfs(int fromIndex, int toIndex) {
-        vertex[fromIndex].Hit = true;
-        int unvisitedIndex = findFirstUnvisited(fromIndex);
-        if (unvisitedIndex != -1) {
-            unvisited.add(unvisitedIndex);
+    private ArrayList<Vertex> bfs(int fromIndex, int toIndex) {
+        Map<Vertex, Vertex> predecessorMap = new HashMap<>();
+        Queue<Vertex> queue = new LinkedList<>();
+        Vertex start = vertex[fromIndex];
+        Vertex end = vertex[toIndex];
+        queue.add(start);
+    
+        while (!queue.isEmpty()) {
+            Vertex currentVertex = queue.poll();
+            currentVertex.Hit = true;
+    
+            if (currentVertex == end) {
+                return constructPath(predecessorMap, start, end);
+            }
+    
+            int currentIndex = Arrays.asList(vertex).indexOf(currentVertex);
+            for (int i = 0; i < max_vertex; i++) {
+                if (m_adjacency[currentIndex][i] == 1 && !vertex[i].Hit) {
+                    queue.add(vertex[i]);
+                    if (!predecessorMap.containsKey(vertex[i])) {
+                        predecessorMap.put(vertex[i], currentVertex);
+                    }
+                }
+            }
         }
-        if (unvisited.size() == 0) {
-            return new Stack<>();
-        }
-        // сохраняем путь
-        int nextIndex = unvisited.poll();
-
-        Stack<Vertex> currentRoute = vertexIndexToRoute.getOrDefault(fromIndex, new Stack<>());
-        currentRoute.push(vertex[nextIndex]);
-        vertexIndexToRoute.put(nextIndex, currentRoute);
-
-        if (unvisitedIndex == toIndex) {
-            return vertexIndexToRoute.get(nextIndex);
-        }
-        return bfs(nextIndex, toIndex);
+        return new ArrayList<>();
     }
+    
+    private ArrayList<Vertex> constructPath(Map<Vertex, Vertex> predecessorMap, Vertex start, Vertex end) {
+        LinkedList<Vertex> path = new LinkedList<>();
+        Vertex step = end;
+    
+        if (predecessorMap.get(step) == null) {
+            return new ArrayList<>();
+        }
+    
+        path.add(step);
+        while (predecessorMap.get(step) != null) {
+            step = predecessorMap.get(step);
+            path.addFirst(step);
+        }
+    
+        return new ArrayList<>(path);
+    }  
 
     private Stack<Vertex> dfs(int fromIndex, int toIndex, boolean push) {
         vertex[fromIndex].Hit = true;
