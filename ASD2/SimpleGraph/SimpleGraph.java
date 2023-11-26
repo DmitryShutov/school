@@ -99,15 +99,15 @@ class SimpleGraph {
         Vertex start = vertex[fromIndex];
         Vertex end = vertex[toIndex];
         queue.add(start);
-    
+
         while (!queue.isEmpty()) {
             Vertex currentVertex = queue.poll();
             currentVertex.Hit = true;
-    
+
             if (currentVertex == end) {
                 return constructPath(predecessorMap, start, end);
             }
-    
+
             int currentIndex = Arrays.asList(vertex).indexOf(currentVertex);
             for (int i = 0; i < max_vertex; i++) {
                 if (m_adjacency[currentIndex][i] == 1 && !vertex[i].Hit) {
@@ -120,23 +120,23 @@ class SimpleGraph {
         }
         return new ArrayList<>();
     }
-    
+
     private ArrayList<Vertex> constructPath(Map<Vertex, Vertex> predecessorMap, Vertex start, Vertex end) {
         LinkedList<Vertex> path = new LinkedList<>();
         Vertex step = end;
-    
+
         if (predecessorMap.get(step) == null) {
             return new ArrayList<>();
         }
-    
+
         path.add(step);
         while (predecessorMap.get(step) != null) {
             step = predecessorMap.get(step);
             path.addFirst(step);
         }
-    
+
         return new ArrayList<>(path);
-    }  
+    }
 
     private Stack<Vertex> dfs(int fromIndex, int toIndex, boolean push) {
         vertex[fromIndex].Hit = true;
@@ -159,5 +159,36 @@ class SimpleGraph {
             return dfs(lastVertexIndex, toIndex, false);
         }
         return routeVertexes;
+    }
+
+    public ArrayList<Vertex> WeakVertices() {
+        ArrayList<Vertex> weakVertices = new ArrayList<Vertex>();
+        for (int i = 0; i < vertex.length; i++) {
+            if (isVertexWeak(i)) {
+                weakVertices.add(vertex[i]);
+            }
+        }
+        return weakVertices;
+    }
+
+    private boolean isVertexWeak(int checkingVertex) {
+        boolean isWeak = true;
+        for (int i = 0; i < vertex.length; i++) {
+            if (!isAdjacent(checkingVertex, i) || checkingVertex == i) continue;
+
+            for (int j = 0; j < vertex.length; j++) {
+                if (!isAdjacent(i, j) || checkingVertex == j) continue;
+
+                if (isAdjacent(j, checkingVertex)) {
+                    isWeak = false;
+                    break;
+                }
+            }
+        }
+        return isWeak;
+    }
+
+    private boolean isAdjacent(int v1, int v2) {
+        return m_adjacency[v1][v2] == 1 || m_adjacency[v2][v1] == 1;
     }
 }
